@@ -11,3 +11,6 @@
 !pip install pdfminer.six
 !pip install chromadb
 !pip install pypdf
+!pip install InstructorEmbedding
+!pip install sentence-transformers
+!pip install bitsandbytes accelerate xformers einops
