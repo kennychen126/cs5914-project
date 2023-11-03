@@ -13,9 +13,11 @@ from langchain.llms import OpenAI
 from langchain.chains import ConversationalRetrievalChain
 
 # add token
-openai.api_key = os.getenv("OPENAI_API_Key")
+# openai.api_key = os.getenv("OPENAI_API_Key")
+openai.api_key = "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"
 DEVICE = "cuda:0" if torch.cuda.is_available() else "cpu"
-login(token=os.getenv("Huggingface"))
+#login(token=os.getenv("Huggingface"))
+login(token="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")
 # setting for the app
 app = Flask(__name__)
 CORS(app)
@@ -36,11 +38,13 @@ prompt_template = """You are a safety trainer aiming to improve behavior safety 
 {context}
 
 Question: {question}
+Personal Information: {background}
+Daily Tasks: {tasks}
 Answer:"""
 
 #######
 PROMPT = PromptTemplate(
-    template=prompt_template, input_variables=["context", "question"]
+    template=prompt_template, input_variables=["context", "question", "background", "tasks"]
 )
 memory = ConversationBufferMemory(memory_key='chat_history', return_messages=True, output_key='answer')
 qa = ConversationalRetrievalChain.from_llm(
@@ -51,8 +55,8 @@ qa = ConversationalRetrievalChain.from_llm(
 )
 
 
-def get_chatgpt4(user_message):
-    return qa({"question": user_message})['answer']
+def get_chatgpt4(user_message, user_background, user_tasks):
+    return qa({"question": user_message, "background": user_background, "tasks": user_tasks})['answer']
 
 
 def get_chatllama(user_message):
@@ -75,10 +79,12 @@ def index():
 @app.route("/chat_gpt4", methods=["POST"])
 def chat_gpt4():
     user_message = request.json.get("message")
+    user_background = request.json.get("background")
+    user_tasks = request.json.get("daily_tasks")
     if user_message is None:
         return jsonify({"error": "No message provided"}), 400
 
-    response_message = get_chatgpt4(user_message)
+    response_message = get_chatgpt4(user_message, user_background, user_tasks)
 
     return jsonify({"message": response_message})
 
