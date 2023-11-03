@@ -1,8 +1,9 @@
+import cv2
 import openai
 import torch
 from langchain.vectorstores import Chroma
 import os
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, Response, make_response
 from flask_cors import CORS
 from huggingface_hub import login
 from langchain.embeddings import HuggingFaceInstructEmbeddings
@@ -10,8 +11,6 @@ from langchain.prompts import PromptTemplate
 from langchain.memory import ConversationBufferMemory
 from langchain.llms import OpenAI
 from langchain.chains import ConversationalRetrievalChain
-from transformers import AutoTokenizer, TextStreamer, pipeline, AutoModelForCausalLM
-from langchain.llms.huggingface_pipeline import HuggingFacePipeline
 
 # add token
 openai.api_key = os.getenv("OPENAI_API_Key")
@@ -51,8 +50,6 @@ qa = ConversationalRetrievalChain.from_llm(
     combine_docs_chain_kwargs={'prompt': PROMPT}
 )
 
-print("backend is ready")
-
 
 def get_chatgpt4(user_message):
     return qa({"question": user_message})['answer']
@@ -62,6 +59,17 @@ def get_chatllama(user_message):
     return qa({"question": user_message})['answer']
 
 
+@app.route("/image", methods=["POST"])
+def index():
+    user_message = request.json.get("message")
+    if user_message is None:
+        return jsonify({"error": "No message provided"}), 400
+    response = openai.Image.create(
+        prompt=user_message,
+        n=1,
+        size="256x256",
+    )
+    return jsonify({"message": response["data"][0]["url"]})
 
 
 @app.route("/chat_gpt4", methods=["POST"])
