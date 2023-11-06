@@ -18,7 +18,7 @@ Installation
 Clone the SafetyChat repository to your local machine using Git: <br />
 bash git clone https://github.com/kennychen126/cs5914-project.git <br />
 Change your current working directory to the SafetyChat project folder: <br />
-bash cd SafetyChat <br />
+bash cd cs5914-project <br />
 Install the required Python dependencies by running the following command: <br />
 bash pip install -r requirements.txt <br />
 This command will install all the necessary libraries and packages for the project.
