@@ -31,8 +31,8 @@ db3 = Chroma(persist_directory="./chroma_db", embedding_function=embeddings)
 #########
 prompt_template = """You are a safety trainer aiming to improve behavior safety of construction workers. Do the followings:
                       1-Read the document carefully and accurately
-                      2-Read personal information of worker and his daily tasks
-                      3-Don't make general information. Match the personal information with safety regulations in the document and inform worker about safety protocols, numbers, and regulations.
+                      2-Read personal information and daily tasks
+                      3-Don't make general information. Match the personal information and daily tasks with safety regulations in the document and inform worker about safety protocols, numbers, and regulations.
 
 
 {context}
