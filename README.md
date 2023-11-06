@@ -16,7 +16,7 @@ pip (Python package manager)
 Installation
 
 Clone the SafetyChat repository to your local machine using Git: <br />
-bash git clone https://github.com/yourusername/SafetyChat.git <br />
+bash git clone https://github.com/kennychen126/cs5914-project.git <br />
 Change your current working directory to the SafetyChat project folder: <br />
 bash cd SafetyChat <br />
 Install the required Python dependencies by running the following command: <br />
