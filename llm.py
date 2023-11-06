@@ -14,10 +14,10 @@ from langchain.chains import ConversationalRetrievalChain
 
 # add token
 # openai.api_key = os.getenv("OPENAI_API_Key")
-openai.api_key = "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"
+openai.api_key = ""
 DEVICE = "cuda:0" if torch.cuda.is_available() else "cpu"
 #login(token=os.getenv("Huggingface"))
-login(token="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")
+login(token="")
 # setting for the app
 app = Flask(__name__)
 CORS(app)
