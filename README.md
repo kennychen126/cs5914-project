@@ -2,10 +2,10 @@
 A Chatbox base on Chatgpt
 
 For the Frontend:
-we use nginx
+we use nginx(html,css)
 
 For the Backend
-we use flask
+we use flask(openai,blockchain,db)
 
 # Prerequisites
 
